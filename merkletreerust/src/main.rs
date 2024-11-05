@@ -103,18 +103,6 @@ old_root = "{old_root}"
     }
 }
 
-// fn generate_proof() -> io::Result<Output> {
-//     Command::new("bb")
-//         .arg("prove")
-//         .arg("-b")
-//         .arg("../merkletreenoir/target/merkletreenoir.json")
-//         .arg("-w")
-//         .arg("../merkletreenoir/target/merkletreenoir.gz")
-//         .arg("-o")
-//         .arg("../merkletreenoir/target/proof")
-//         .output()
-// }
-
 fn generate_proof() -> io::Result<()> {
     let mut command = Command::new("bb")
         .arg("prove")
