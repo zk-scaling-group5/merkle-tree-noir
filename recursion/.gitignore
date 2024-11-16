@@ -1,0 +1,13 @@
+proofs
+.vscode
+crs
+.DS_Store
+artifacts
+.cache
+.target
+typechain-types
+cache
+target
+.next
+node_modules
+next-env.d.types

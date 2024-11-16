@@ -4,6 +4,7 @@ use dep::std;
 global MERKLE_DEPTH = 4;
 
 // The main function of the Noir program
+#[recursive]
 fn main(
     leaf_index1: Field, // Index of the leaf being updated
     leaf_index2: Field, // Index of the leaf being updated
