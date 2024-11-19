@@ -59,6 +59,54 @@ Inside the folder merkletreenoir, write the following commands:
 A new Solidity contract file contract.sol is generated along with the verification key vk. It can be deployed to any EVM blockchain acting as a verifier smart contract.
 Follow the steps here to [Noir](https://noir-lang.org/)[compile](https://noir-lang.org/docs/how_to/how-to-solidity-verifier#step-2---compiling), [deploy](https://noir-lang.org/docs/how_to/how-to-solidity-verifier#step-3---deploying) and [verify](https://noir-lang.org/docs/how_to/how-to-solidity-verifier#step-4---verifying) the solidity contract on-chain on any EVM blockchain (for example Sepolia testnet).
 
+### Verify the proof 
+#### Step 1: Convert the Proof to Hexadecimal
+The previous generated Proof is in Binary and in order to use it in Remix in the ```verifyProof()``` function, 
+the proof needs to be converted to hexadecimal format. 
+Use the following command:
+
+```HEX_PROOF=$(od -An -v -t x1 ./proof | tr -d ' \n')```
+This reads the binary proof file and converts it into a continuous hexadecimal string.
+```echo "0x$HEX_PROOF"```
+
+This 0x$HEX_PROOF will be passed as the _proof parameter.
+
+#### Step 2: Determine the Number of Public Inputs
+Public inputs are explicitly defined in your Noir program and passed separately to the verifier.
+In this example, there are 3 public inputs: old_root, intermediate_root, new_root.
+
+Extract and Convert Public Inputs to Hexadecimal: Use the following command:
+
+
+``` HEX_PUBLIC_INPUTS=$(head -c $PUBLIC_INPUT_BYTES ./target/proof | od -An -v -t x1 | tr -d ' \n')```
+This extracts the first $PUBLIC_INPUT_BYTES from the proof file and converts them into a single hexadecimal string.
+
+echo $HEX_PUBLIC_INPUTS 
+This will output:
+
+[
+    "0x219acb6c87119c9d195e825922fb6f81e7636616d27f29cf1239e022fa36bf10",
+    "0x12be21783d2eceb6968e86d597ff5d8939cd7955816500ea128793a35e1ff220",
+    "0x1637d3277170f716400649d7bdbd0b47042a377a57671e662527cce2c79af5da"
+]
+
+#### Step 3: Verify in Remix
+Deploy the Verifier Contract:
+
+Ensure the verifier corresponds to the circuit used to generate the proof.
+Call the verifyProof Function: In Remix, use the following format:
+
+```
+verifyProof(
+    "0x219acb6c87119c9d195e825922fb6f81e7636616d27f29cf1239e022fa36bf10...", // HEX_PROOF
+    [
+        "0x219acb6c87119c9d195e825922fb6f81e7636616d27f29cf1239e022fa36bf10", // Public Input 1
+        "0x12be21783d2eceb6968e86d597ff5d8939cd7955816500ea128793a35e1ff220", // Public Input 2
+        "0x1637d3277170f716400649d7bdbd0b47042a377a57671e662527cce2c79af5da"  // Public Input 3
+    ]
+);
+```
+
 
 ## File Structure
 
