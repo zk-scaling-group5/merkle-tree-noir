@@ -49,6 +49,17 @@ The simulation will produce the following files:
 - **Witness File**: Located at `merkletreenoir/Prover.toml`.
 - **Proof File**: Located at `merkletreenoir/target/proof`.
 
+## Generate a Solidity Verifier
+Inside the folder merkletreenoir, write the following commands:
+
+```bb write_vk -b ./target/merkletreenoir.json```
+
+```bb contract```
+
+A new Solidity contract file contract.sol is generated along with the verification key vk. It can be deployed to any EVM blockchain acting as a verifier smart contract.
+Follow the steps here to [Noir](https://noir-lang.org/)[compile](https://noir-lang.org/docs/how_to/how-to-solidity-verifier#step-2---compiling), [deploy](https://noir-lang.org/docs/how_to/how-to-solidity-verifier#step-3---deploying) and [verify](https://noir-lang.org/docs/how_to/how-to-solidity-verifier#step-4---verifying) the solidity contract on-chain on any EVM blockchain (for example Sepolia testnet).
+
+
 ## File Structure
 
 - **merkletreerust**: Contains the main Rust code to build and simulate the Merkle tree transaction.
