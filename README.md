@@ -66,7 +66,7 @@ the proof needs to be converted to hexadecimal format.
 
 * Use the following command:
 
-```HEX_PROOF=$(od -An -v -t x1 ./proof | tr -d ' \n')```
+```HEX_PROOF=$(od -An -v -t x1 ./target/proof | tr -d ' \n')```
 
 This reads the binary proof file and converts it into a continuous hexadecimal string.
 * ```echo "0x$HEX_PROOF"```
