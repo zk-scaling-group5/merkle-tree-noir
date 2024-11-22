@@ -68,7 +68,7 @@ the proof needs to be converted to hexadecimal format.
 
 ```PUBLIC_INPUT_BYTES=96```
 
-```HEX_PROOF=$(tail -c +$(($PUBLIC_INPUT_BYTES + 1)) ./proof | od -An -v -t x1 | tr -d $' \n')```
+```HEX_PROOF=$(tail -c +$(($PUBLIC_INPUT_BYTES + 1)) ./target/proof | od -An -v -t x1 | tr -d $' \n')```
 
 This reads the binary proof file and converts it into a continuous hexadecimal string.
 * ```echo "0x$HEX_PROOF"```
