@@ -64,9 +64,11 @@ Follow the steps here to [Noir](https://noir-lang.org/)[compile](https://noir-la
 The previous generated Proof is in Binary and in order to use it in Remix in the ```verifyProof()``` function, 
 the proof needs to be converted to hexadecimal format. 
 
-* Use the following command:
+* Use the following commands:
 
-```HEX_PROOF=$(od -An -v -t x1 ./target/proof | tr -d ' \n')```
+```PUBLIC_INPUT_BYTES=96```
+
+```HEX_PROOF=$(tail -c +$(($PUBLIC_INPUT_BYTES + 1)) ./target/proof | od -An -v -t x1 | tr -d $' \n')```
 
 This reads the binary proof file and converts it into a continuous hexadecimal string.
 * ```echo "0x$HEX_PROOF"```
@@ -80,7 +82,7 @@ In this example, there are 3 public inputs: ```old_root, intermediate_root, new_
 
 * Extract and Convert Public Inputs to Hexadecimal: Use the following command:
 
-``` HEX_PUBLIC_INPUTS=$(head -c $PUBLIC_INPUT_BYTES ./target/proof | od -An -v -t x1 | tr -d ' \n')```
+```HEX_PUBLIC_INPUTS=$(head -c $PUBLIC_INPUT_BYTES ./target/proof | od -An -v -t x1 | tr -d $' \n')```
 
 This extracts the first ```PUBLIC_INPUT_BYTES``` from the proof file and converts them into a single hexadecimal string.
 
@@ -102,7 +104,7 @@ This will output:
 
 ```
 verifyProof(
-    "0x219acb6c87119c9d195e825922fb6f81e7636616d27f29cf1239e022fa36bf10...", // HEX_PROOF
+     "0x0aa6a90a9038a11554354667dd1c181e45fd3895d036223d675d51bd6ee8ea84...", // HEX_PROOF
     [
         "0x219acb6c87119c9d195e825922fb6f81e7636616d27f29cf1239e022fa36bf10", // Public Input 1
         "0x12be21783d2eceb6968e86d597ff5d8939cd7955816500ea128793a35e1ff220", // Public Input 2
