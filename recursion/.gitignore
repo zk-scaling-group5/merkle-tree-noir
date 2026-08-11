@@ -11,3 +11,4 @@ target
 .next
 node_modules
 next-env.d.types
+.yarn/install-state.gz
